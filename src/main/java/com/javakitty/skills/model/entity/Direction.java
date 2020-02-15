@@ -1,16 +1,24 @@
-package com.javakitty.skills.model;
+package com.javakitty.skills.model.entity;
 
+import com.javakitty.skills.model.DirectionGrade;
+import com.javakitty.skills.model.DirectionTitle;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "directions")
 @Data
-public class Direction {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Direction   {
+
+    @Id
+    Long id;
 
     @Column(name = "direction_title")
     private DirectionTitle directionTitle; //enum
@@ -26,5 +34,9 @@ public class Direction {
 
     @Column(name = "status")
     private boolean status;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id", nullable=false)
+    private Employee employee;
 
 }

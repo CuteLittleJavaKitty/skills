@@ -1,4 +1,5 @@
 package com.javakitty.skills.model;
 
-public class DirectionTitle {
+public enum DirectionTitle {
+    DIRECTION_TITLE1, DIRECTION_TITLE2
 }

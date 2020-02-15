@@ -1,19 +1,19 @@
-package com.javakitty.skills.model;
+package com.javakitty.skills.model.entity;
 
-import com.javakitty.skills.model.security.roles.Role;
-import lombok.Data;
-
+import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "employees")
 @Data
-public class Employee {
-
+@AllArgsConstructor
+@NoArgsConstructor
+public class Employee   {
+ 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long employeeId;
 
     @Column(name = "last_name")
     private String lastName;
@@ -23,20 +23,24 @@ public class Employee {
     private String secondName;
 
     @Column(name = "programming_language")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ProgrammingLanguage> programmingLanguage;
+
     @Column(name = "language")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Language> language;
+
+    @Column(name = "directions")
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Direction> directions;
 
     @Column(name = "is_ready_to_business_trip")
     private Boolean isReadyToBusinessTrip;
 
-    @Column(name = "directions")
-    private List<Direction> directions;
-
     @Column(name = "projects")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Project> projects;
 
-    @Column(name = "roles")
-    private List<Role> roles;
-
 }
+
+

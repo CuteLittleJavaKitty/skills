@@ -1,19 +1,27 @@
-package com.javakitty.skills.model;
+package com.javakitty.skills.model.entity;
 
-import lombok.Data;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.javakitty.skills.model.*;
+import lombok.*;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "languages")
+@Table(name = "language_grades")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Language {
 
+    @Id
+    Long id;
+
     @Column(name = "title")
-    private LanguageTitle languageTitle; // enum
+    private LanguageTitle languageTitle;
+
     @Column(name = "grade")
-    private LanguageGrade languageGrade; // enum || class
+    private LanguageGrade languageGrade;
+
+    @ManyToOne
+    @JoinColumn(name="employee_id", nullable=false)
+    private Employee employee;
 
 }

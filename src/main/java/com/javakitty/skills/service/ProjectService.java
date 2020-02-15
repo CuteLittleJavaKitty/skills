@@ -1,4 +1,8 @@
 package com.javakitty.skills.service;
 
-public interface IProjectService {
+import org.springframework.stereotype.Service;
+
+@Service
+public interface ProjectService {
+
 }

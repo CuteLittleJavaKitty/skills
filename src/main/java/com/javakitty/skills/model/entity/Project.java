@@ -1,16 +1,22 @@
-package com.javakitty.skills.model;
+package com.javakitty.skills.model.entity;
 
-import lombok.Data;
+import com.javakitty.skills.model.DirectionGrade;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "projects")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Project {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long project_id;
 
     @Column(name = "title")
     private String title;
@@ -23,5 +29,9 @@ public class Project {
 
     @Column(name = "end_timestamp")
     private LocalDateTime endProject;
+
+    @ManyToOne
+    @JoinColumn(name="employee_id", nullable=false)
+    private Employee employee;
 
 }
