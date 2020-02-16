@@ -1,7 +1,9 @@
 package com.javakitty.skills.service.impl;
 
+
 import com.javakitty.skills.dao.EmployeeRepository;
 import com.javakitty.skills.model.dto.EmployeeDto;
+import com.javakitty.skills.model.dto.ProjectDto;
 import com.javakitty.skills.model.entity.Employee;
 import com.javakitty.skills.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -29,22 +32,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ResponseEntity<EmployeeDto> save(Employee employee) {
-        //TODO: if exists - ?
-        return new ResponseEntity<>(entityToDto(employeeRepository.save(employee)), HttpStatus.OK);
-    }
+    public ResponseEntity<EmployeeDto> save(EmployeeDto employeeDto) {
 
-    private EmployeeDto entityToDto(Employee employee) {
-        return this.modelMapper.map(employee, EmployeeDto.class);
+        Employee employee = DtoToEntity(employeeDto);
+        return new ResponseEntity<>(EntityToDto(employeeRepository.save(employee)), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<EmployeeDto> updateProjects (EmployeeDto employeeDto, long id) throws EntityNotFoundException {
+    public ResponseEntity<EmployeeDto> updateProjects(ProjectDto projectDto, long id) throws EntityNotFoundException {
 
         Employee employee = get(id);
-        employee.setProjects(employeeDto.getProjects());
+        modelMapper.map(projectDto, employee);
 
-        return save(employee);
+        return new ResponseEntity<>(EntityToDto(employeeRepository.save(employee)), HttpStatus.OK);
     }
 
     @Override
@@ -56,7 +56,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     public ResponseEntity<EmployeeDto> find(long id) {
 
         Employee employee = get(id);
-        return new ResponseEntity<>(entityToDto(employee), HttpStatus.OK);
+        return new ResponseEntity<>(EntityToDto(employee), HttpStatus.OK);
+    }
+
+    @Override
+    public Employee DtoToEntity(EmployeeDto employeeDto) {
+        return Objects.isNull(employeeDto) ? null : modelMapper.map(employeeDto, Employee.class);
+    }
+
+    @Override
+    public EmployeeDto EntityToDto(Employee employee) {
+        return Objects.isNull(employee) ? null : modelMapper.map(employee, EmployeeDto.class);
     }
 
     private Employee get(long id) {

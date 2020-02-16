@@ -1,11 +1,12 @@
 package com.javakitty.skills.model.entity;
 
 import com.javakitty.skills.model.DirectionGrade;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 @Table(name = "projects")
@@ -16,7 +17,7 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long project_id;
+    private Long id;
 
     @Column(name = "title")
     private String title;
@@ -31,7 +32,7 @@ public class Project {
     private LocalDateTime endProject;
 
     @ManyToOne
-    @JoinColumn(name="employee_id", nullable=false)
+    @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
 }
