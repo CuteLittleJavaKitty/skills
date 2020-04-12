@@ -1,9 +1,7 @@
 package com.javakitty.skills.service.impl;
 
-
 import com.javakitty.skills.dao.EmployeeRepository;
 import com.javakitty.skills.model.dto.EmployeeDto;
-import com.javakitty.skills.model.dto.ProjectDto;
 import com.javakitty.skills.model.entity.Employee;
 import com.javakitty.skills.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.Objects;
 import java.util.Optional;
+
 
 @Slf4j
 @Service
@@ -32,17 +31,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ResponseEntity<EmployeeDto> save(EmployeeDto employeeDto) {
-
+    public EmployeeDto save(EmployeeDto employeeDto) throws IllegalArgumentException {
         Employee employee = DtoToEntity(employeeDto);
-        return new ResponseEntity<>(EntityToDto(employeeRepository.save(employee)), HttpStatus.OK);
+        return EntityToDto(employeeRepository.save(employee));
     }
 
     @Override
-    public ResponseEntity<EmployeeDto> updateProjects(ProjectDto projectDto, long id) throws EntityNotFoundException {
+    public ResponseEntity<EmployeeDto> add(EmployeeDto employeeDto) {
+        return new ResponseEntity<>(save(employeeDto), HttpStatus.OK);
+    }
 
-        Employee employee = get(id);
-        modelMapper.map(projectDto, employee);
+    @Override
+    public ResponseEntity<EmployeeDto> update(EmployeeDto employeeDto, long id) {
+        Optional<Employee> found = employeeRepository.findById(id);
+        Employee employee = found.orElseThrow(EntityNotFoundException::new);
+
+        modelMapper.map(employeeDto, employee);
 
         return new ResponseEntity<>(EntityToDto(employeeRepository.save(employee)), HttpStatus.OK);
     }
@@ -54,8 +58,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ResponseEntity<EmployeeDto> find(long id) {
+        Optional<Employee> found = employeeRepository.findById(id);
+        Employee employee = found.orElseThrow(EntityNotFoundException::new);
 
-        Employee employee = get(id);
         return new ResponseEntity<>(EntityToDto(employee), HttpStatus.OK);
     }
 
@@ -67,12 +72,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto EntityToDto(Employee employee) {
         return Objects.isNull(employee) ? null : modelMapper.map(employee, EmployeeDto.class);
-    }
-
-    private Employee get(long id) {
-
-        Optional<Employee> findEmployee = employeeRepository.findById(id);
-        return findEmployee.orElseThrow(EntityNotFoundException::new);
     }
 
 

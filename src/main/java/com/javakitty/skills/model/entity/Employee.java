@@ -1,6 +1,7 @@
 package com.javakitty.skills.model.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Builder
 @Table(name = "employees")
 @Data
 @AllArgsConstructor
@@ -16,7 +18,7 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long employeeId;
+    private Long id;
 
     @Column(name = "last_name")
     private String lastName;
@@ -24,6 +26,9 @@ public class Employee {
     private String firstName;
     @Column(name = "second_name")
     private String secondName;
+
+    @Column(name = "ready_to_business_trip")
+    private Boolean readyToBusinessTrip;
 
     @Column(name = "programming_language")
     @OneToMany(cascade = CascadeType.ALL)
@@ -37,11 +42,14 @@ public class Employee {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Direction> directions;
 
-    @Column(name = "is_ready_to_business_trip")
-    private Boolean isReadyToBusinessTrip;
 
     @Column(name = "projects")
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "employee_projects",
+            joinColumns = { @JoinColumn(name = "employee_id") },
+            inverseJoinColumns = { @JoinColumn(name = "project_id") }
+    )
     private List<Project> projects;
 
 }

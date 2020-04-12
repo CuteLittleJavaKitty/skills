@@ -1,35 +1,38 @@
 plugins {
-    id 'org.springframework.boot' version '2.2.3.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-    id 'io.franzbecker.gradle-lombok' version '1.14'
-    id 'java'
-}
+     id "org.springframework.boot" version "${springframeworkBootVersion}"
+     id "io.spring.dependency-management" version "${springDependencyManagementVersion}"
+     id "io.franzbecker.gradle-lombok" version "${gradleLombokVersion}"
+     id "java"
+ }
 
-group = 'com.javaKitty.skills'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+ group = "com.javaKitty.skills"
+ version = "0.0.1-SNAPSHOT"
+ sourceCompatibility = "11"
 
-repositories {
-    mavenCentral()
+ repositories {
+     mavenCentral()
+ }
 
-}
+ dependencies {
 
-dependencies {
+     compile "org.modelmapper:modelmapper:${modelMapperVersion}"
+     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+     implementation "org.springframework.boot:spring-boot-starter-security"
+     implementation "org.springframework.boot:spring-boot-starter-web"
+     runtimeOnly "org.postgresql:postgresql"
 
-    compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.6'
 
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    runtimeOnly 'org.postgresql:postgresql'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
-    testImplementation 'org.springframework.security:spring-security-test'
+     testImplementation "org.springframework.boot:spring-boot-starter-test"
+     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
+     testImplementation "org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}"
+     testImplementation "org.testcontainers:testcontainers:${testContainersVersion}"
+     testImplementation "org.testcontainers:junit-jupiter:${testContainersVersion}"
+     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
 
-}
-lombok {
-    version = '1.18.4'
+
+ }
+ lombok {
+    version = "1.18.4"
     sha256 = ""
 }
 test {

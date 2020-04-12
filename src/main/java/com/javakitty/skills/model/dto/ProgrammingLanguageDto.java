@@ -2,12 +2,15 @@ package com.javakitty.skills.model.dto;
 
 import com.javakitty.skills.model.ProgrammingLanguageGrade;
 import com.javakitty.skills.model.ProgrammingLanguageTitle;
-import com.javakitty.skills.model.entity.Employee;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProgrammingLanguageDto {
@@ -16,6 +19,6 @@ public class ProgrammingLanguageDto {
 
     private ProgrammingLanguageGrade programmingLanguageGrade;
 
-    private Employee employee;
+    private LocalDateTime timestamp;
 
 }

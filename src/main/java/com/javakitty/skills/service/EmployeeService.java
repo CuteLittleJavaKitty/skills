@@ -7,9 +7,11 @@ import org.springframework.http.ResponseEntity;
 
 public interface EmployeeService {
 
-    ResponseEntity<EmployeeDto> save(EmployeeDto employeeDto);
+    EmployeeDto save(EmployeeDto employeeDto);
 
-    ResponseEntity<EmployeeDto> updateProjects(ProjectDto projectDto, long id);
+    ResponseEntity<EmployeeDto> add(EmployeeDto employeeDto);
+
+    ResponseEntity<EmployeeDto> update(EmployeeDto employeeDto, long id);
 
     void delete(long id);
 

@@ -2,13 +2,16 @@ package com.javakitty.skills.model.entity;
 
 import com.javakitty.skills.model.DirectionGrade;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
+@Builder
 @Table(name = "projects")
 @Data
 @AllArgsConstructor
@@ -25,14 +28,7 @@ public class Project {
     @Column(name = "direction_grade")
     private DirectionGrade directionGrade;
 
-    @Column(name = "start_timestamp")
-    private LocalDateTime startProject;
-
-    @Column(name = "end_timestamp")
-    private LocalDateTime endProject;
-
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
-    private Employee employee;
+    @ManyToMany(mappedBy = "projects")
+    private List<Employee> employees;
 
 }
