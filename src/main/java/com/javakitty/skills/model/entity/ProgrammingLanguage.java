@@ -11,15 +11,17 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Data
 @Builder
 @Table(name = "programming_language_grades")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProgrammingLanguage {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "programming_language_id_seq")
+    @SequenceGenerator(name = "programming_language_id_seq", sequenceName = "programming_language_id_seq", allocationSize = 1)
     Long id;
 
     @Column(name = "title")
@@ -31,8 +33,7 @@ public class ProgrammingLanguage {
     @Column(name = "timestamp")
     private LocalDateTime timestamp;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Employee employee;
 
 }

@@ -49,12 +49,6 @@ public class EmployeeServiceTest {
     }
 
     @ParameterizedTest
-    @MethodSource("com.javakitty.skills.arg.EmployeeArgs#employeeSource")
-    void kek(Employee employee) {
-        EmployeeDto employeeDto = employeeService.EntityToDto(employee);
-    }
-
-    @ParameterizedTest
     @MethodSource("com.javakitty.skills.arg.EmployeeArgs#employeeDtoSource")
     void saveTest(EmployeeDto employeeDto) {
         when(employeeRepository.save(any(Employee.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
@@ -71,7 +65,10 @@ public class EmployeeServiceTest {
         ResponseEntity<EmployeeDto> update = employeeService.update(employeeDto, id);
         EmployeeDto response = update.getBody();
 
-        Assertions.assertEquals(modelMapper.map(employee, EmployeeDto.class), response);
+        EmployeeDto expected = new EmployeeDto();
+        modelMapper.map(employee, expected);
+
+        Assertions.assertEquals(expected, response);
     }
 
     @ParameterizedTest

@@ -1,7 +1,6 @@
 package com.javakitty.skills.service.impl;
 
 import com.javakitty.skills.dao.ProjectRepository;
-
 import com.javakitty.skills.model.dto.ProjectDto;
 import com.javakitty.skills.model.entity.Project;
 import com.javakitty.skills.service.ProjectService;

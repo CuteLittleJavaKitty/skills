@@ -1,0 +1,32 @@
+spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  profiles: prod
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://db:5432/skills
+    password: postgres
+    username:
+
+---
+
+spring:
+  profiles: dev
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/skills_test
+    password: postgres
+    username: postgres

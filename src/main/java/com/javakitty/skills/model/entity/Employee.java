@@ -7,18 +7,21 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@Data
 @Builder
 @Table(name = "employees")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_id_seq")
+    @SequenceGenerator(name = "employee_id_seq", sequenceName = "employee_id_seq", allocationSize = 1)
     private Long id;
+
 
     @Column(name = "last_name")
     private String lastName;
@@ -31,26 +34,21 @@ public class Employee {
     private Boolean readyToBusinessTrip;
 
     @Column(name = "programming_language")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProgrammingLanguage> programmingLanguage;
 
     @Column(name = "language")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Language> language;
 
     @Column(name = "directions")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Direction> directions;
 
-
     @Column(name = "projects")
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "employee_projects",
-            joinColumns = { @JoinColumn(name = "employee_id") },
-            inverseJoinColumns = { @JoinColumn(name = "project_id") }
-    )
-    private List<Project> projects;
+    @ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    private Set<Project> projects;
+
 
 }
 

@@ -47,8 +47,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = found.orElseThrow(EntityNotFoundException::new);
 
         modelMapper.map(employeeDto, employee);
+        Employee updated = employeeRepository.save(employee);
 
-        return new ResponseEntity<>(EntityToDto(employeeRepository.save(employee)), HttpStatus.OK);
+        return new ResponseEntity<>(EntityToDto(updated), HttpStatus.OK);
     }
 
     @Override

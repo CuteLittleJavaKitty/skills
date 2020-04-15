@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeDto implements Serializable {

@@ -25,14 +25,14 @@ public class EmployeeController {
         this.service = service;
     }
 
-    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE, produces =
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces =
             MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> add(@RequestBody EmployeeDto dto) {
+    public ResponseEntity<?> addEmployee(@RequestBody EmployeeDto dto) {
         try {
             return service.add(dto);
         }
         catch(IllegalArgumentException ex) {
-            log.error("Exception in getEmployee method, employeeDto is null");
+            log.error("Exception in addEmployee method, employeeDto is null");
             return ResponseEntity
                     .status(INTERNAL_SERVER_ERROR)
                     .body(INTERNAL_SERVER_ERROR.getReasonPhrase());
@@ -40,9 +40,9 @@ public class EmployeeController {
     }
 
 
-    @PutMapping(value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces =
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces =
             MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> update(EmployeeDto dto, @PathVariable Long id) {
+    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeDto dto, @PathVariable Long id) {
         try {
             return service.update(dto, id);
         }
@@ -80,8 +80,8 @@ public class EmployeeController {
         }
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<?> delete(@PathVariable long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteEmployee(@PathVariable long id) {
         try {
             service.delete(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

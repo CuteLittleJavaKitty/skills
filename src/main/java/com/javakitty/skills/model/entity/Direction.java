@@ -11,15 +11,17 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Data
 @Builder
 @Table(name = "directions")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Direction {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "direction_id_seq")
+    @SequenceGenerator(name = "direction_id_seq", sequenceName = "direction_id_seq", allocationSize = 1)
     Long id;
 
     @Column(name = "direction_title")
@@ -37,8 +39,7 @@ public class Direction {
     @Column(name = "status")
     private boolean status;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Employee employee;
 
 }
