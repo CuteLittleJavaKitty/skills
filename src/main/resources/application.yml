@@ -14,7 +14,7 @@ spring:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://db:5432/skills
     password: postgres
-    username:
+    username: postgres
 
 ---
 
