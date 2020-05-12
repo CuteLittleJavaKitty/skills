@@ -21,7 +21,8 @@ public class EmployeeController {
 
     private EmployeeServiceImpl service;
 
-    public EmployeeController(@Autowired EmployeeServiceImpl service) {
+    @Autowired
+    public EmployeeController(EmployeeServiceImpl service) {
         this.service = service;
     }
 
@@ -34,6 +35,12 @@ public class EmployeeController {
         catch(IllegalArgumentException ex) {
             log.error("Exception in addEmployee method, employeeDto is null");
             return ResponseEntity
+                    .status(INTERNAL_SERVER_ERROR)
+                    .body(INTERNAL_SERVER_ERROR.getReasonPhrase());
+        }
+        catch(Exception e) {
+            log.error("Exception in add method, employee dto: {}", dto);
+            return  ResponseEntity
                     .status(INTERNAL_SERVER_ERROR)
                     .body(INTERNAL_SERVER_ERROR.getReasonPhrase());
         }
@@ -58,6 +65,12 @@ public class EmployeeController {
                     .status(NOT_FOUND)
                     .body(NOT_FOUND.getReasonPhrase());
         }
+        catch(Exception e) {
+            log.error("Exception in update method, id: {}, employee dto: {}", id, dto);
+            return  ResponseEntity
+                    .status(INTERNAL_SERVER_ERROR)
+                    .body(INTERNAL_SERVER_ERROR.getReasonPhrase());
+        }
 
     }
 
@@ -78,6 +91,12 @@ public class EmployeeController {
                     .status(NOT_FOUND)
                     .body(NOT_FOUND.getReasonPhrase());
         }
+        catch(Exception e) {
+            log.error("Exception in get method, id: {}", id);
+            return  ResponseEntity
+                    .status(INTERNAL_SERVER_ERROR)
+                    .body(INTERNAL_SERVER_ERROR.getReasonPhrase());
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -89,6 +108,12 @@ public class EmployeeController {
         catch(IllegalArgumentException ex) {
             log.error("Exception in delete method, employee id is null");
             return ResponseEntity
+                    .status(INTERNAL_SERVER_ERROR)
+                    .body(INTERNAL_SERVER_ERROR.getReasonPhrase());
+        }
+        catch(Exception e) {
+            log.error("Exception in delete method, id: {}", id);
+            return  ResponseEntity
                     .status(INTERNAL_SERVER_ERROR)
                     .body(INTERNAL_SERVER_ERROR.getReasonPhrase());
         }
