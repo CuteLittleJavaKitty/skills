@@ -39,7 +39,7 @@ public class EmployeeController {
                     .body(INTERNAL_SERVER_ERROR.getReasonPhrase());
         }
         catch(Exception e) {
-            log.error("Exception in add method, employee dto: {}", dto);
+            log.error("Exception in addEmployee method, employee dto: {}", dto);
             return  ResponseEntity
                     .status(INTERNAL_SERVER_ERROR)
                     .body(INTERNAL_SERVER_ERROR.getReasonPhrase());
@@ -54,7 +54,7 @@ public class EmployeeController {
             return service.update(dto, id);
         }
         catch(IllegalArgumentException ex) {
-            log.error("Exception in getEmployee method, employee id: {}, employeeDto: {}", id, dto.toString());
+            log.error("Exception in updateEmployee method, employee id: {}, employeeDto: {}", id, dto.toString());
             return ResponseEntity
                     .status(INTERNAL_SERVER_ERROR)
                     .body(INTERNAL_SERVER_ERROR.getReasonPhrase());
@@ -66,7 +66,7 @@ public class EmployeeController {
                     .body(NOT_FOUND.getReasonPhrase());
         }
         catch(Exception e) {
-            log.error("Exception in update method, id: {}, employee dto: {}", id, dto);
+            log.error("Exception in updateEmployee method, id: {}, employee dto: {}", id, dto);
             return  ResponseEntity
                     .status(INTERNAL_SERVER_ERROR)
                     .body(INTERNAL_SERVER_ERROR.getReasonPhrase());
@@ -92,7 +92,7 @@ public class EmployeeController {
                     .body(NOT_FOUND.getReasonPhrase());
         }
         catch(Exception e) {
-            log.error("Exception in get method, id: {}", id);
+            log.error("Exception in getEmployee method, id: {}", id);
             return  ResponseEntity
                     .status(INTERNAL_SERVER_ERROR)
                     .body(INTERNAL_SERVER_ERROR.getReasonPhrase());
@@ -106,13 +106,13 @@ public class EmployeeController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
         catch(IllegalArgumentException ex) {
-            log.error("Exception in delete method, employee id is null");
+            log.error("Exception in deleteEmployee method, employee id is null");
             return ResponseEntity
                     .status(INTERNAL_SERVER_ERROR)
                     .body(INTERNAL_SERVER_ERROR.getReasonPhrase());
         }
         catch(Exception e) {
-            log.error("Exception in delete method, id: {}", id);
+            log.error("Exception in deleteEmployee method, id: {}", id);
             return  ResponseEntity
                     .status(INTERNAL_SERVER_ERROR)
                     .body(INTERNAL_SERVER_ERROR.getReasonPhrase());
