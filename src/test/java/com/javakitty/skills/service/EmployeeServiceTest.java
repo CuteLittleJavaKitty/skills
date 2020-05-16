@@ -1,5 +1,6 @@
 package com.javakitty.skills.service;
 
+import com.javakitty.skills.controller.exception.EmployeeNotFoundException;
 import com.javakitty.skills.dao.EmployeeRepository;
 import com.javakitty.skills.model.dto.EmployeeDto;
 import com.javakitty.skills.model.entity.Employee;
@@ -9,12 +10,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.*;
+import org.mockito.AdditionalAnswers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -76,7 +79,7 @@ public class EmployeeServiceTest {
     void updateNegativeTest(EmployeeDto employeeDto, long id) {
         when(employeeRepository.findById(id)).thenReturn(Optional.empty());
 
-        Assertions.assertThrows(EntityNotFoundException.class, ()->employeeService.update(employeeDto, id));
+        Assertions.assertThrows(EmployeeNotFoundException.class, () -> employeeService.update(employeeDto, id));
     }
 
     @ParameterizedTest
@@ -100,7 +103,8 @@ public class EmployeeServiceTest {
     @ValueSource(longs = 99L)
     void findNegativeTest(long id) {
         when(employeeRepository.findById(id)).thenReturn(Optional.empty());
-        Assertions.assertThrows(EntityNotFoundException.class, () -> employeeService.find(id));
+        Assertions.assertThrows(EmployeeNotFoundException.class, () -> employeeService.find(id));
+
     }
 
 }

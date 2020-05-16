@@ -1,5 +1,6 @@
 package com.javakitty.skills.service.impl;
 
+import com.javakitty.skills.controller.exception.EmployeeNotFoundException;
 import com.javakitty.skills.dao.EmployeeRepository;
 import com.javakitty.skills.model.dto.EmployeeDto;
 import com.javakitty.skills.model.entity.Employee;
@@ -11,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -20,8 +20,8 @@ import java.util.Optional;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private EmployeeRepository employeeRepository;
-    private ModelMapper modelMapper;
+    private final EmployeeRepository employeeRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public EmployeeServiceImpl(EmployeeRepository employeeRepository,
@@ -44,7 +44,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public ResponseEntity<EmployeeDto> update(EmployeeDto employeeDto, long id) {
         Optional<Employee> found = employeeRepository.findById(id);
-        Employee employee = found.orElseThrow(EntityNotFoundException::new);
+        Employee employee = found.orElseThrow(EmployeeNotFoundException::new);
 
         modelMapper.map(employeeDto, employee);
         Employee updated = employeeRepository.save(employee);
@@ -60,7 +60,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public ResponseEntity<EmployeeDto> find(long id) {
         Optional<Employee> found = employeeRepository.findById(id);
-        Employee employee = found.orElseThrow(EntityNotFoundException::new);
+        Employee employee = found.orElseThrow(EmployeeNotFoundException::new);
 
         return new ResponseEntity<>(EntityToDto(employee), HttpStatus.OK);
     }
