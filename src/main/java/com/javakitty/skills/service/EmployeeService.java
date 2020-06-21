@@ -9,17 +9,17 @@ public interface EmployeeService {
 
     EmployeeDto save(EmployeeDto employeeDto);
 
-    ResponseEntity<EmployeeDto> add(EmployeeDto employeeDto);
+    EmployeeDto create(EmployeeDto employeeDto);
 
-    ResponseEntity<EmployeeDto> update(EmployeeDto employeeDto, long id);
+    EmployeeDto update(EmployeeDto employeeDto, long id);
 
     void delete(long id);
 
-    ResponseEntity<EmployeeDto> find(long id);
+    EmployeeDto find(long id);
 
-    Employee DtoToEntity(EmployeeDto employeeDto);
+    Employee dtoToEntity(EmployeeDto employeeDto);
 
-    EmployeeDto EntityToDto(Employee employee);
+    EmployeeDto entityToDto(Employee employee);
 
 
 }

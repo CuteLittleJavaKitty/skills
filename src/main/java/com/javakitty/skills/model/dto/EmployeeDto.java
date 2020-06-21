@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class EmployeeDto implements Serializable {
 
     private String lastName;

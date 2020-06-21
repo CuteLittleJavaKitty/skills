@@ -1,4 +1,4 @@
-package com.javakitty.skills.controller.exception;
+package com.javakitty.skills.model.exception;
 
 public class EmployeeNotFoundException extends RuntimeException {
 }

@@ -1,5 +1,6 @@
-package com.javakitty.skills.controller.exception;
+package com.javakitty.skills.controller.handler;
 
+import com.javakitty.skills.model.exception.EmployeeNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,8 +16,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EmployeeNotFoundException.class)
-    public ResponseEntity<Object> handleEmployeeNotFoundException(
-            EmployeeNotFoundException ex, WebRequest request) {
+    public ResponseEntity<Object> handleEmployeeNotFoundException(WebRequest webRequest) {
         return ResponseEntity
                 .status(NOT_FOUND)
                 .body(NOT_FOUND.getReasonPhrase());
@@ -24,9 +24,9 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleUncaughtArgumentException(
-            Exception ex, WebRequest request) {
-        log.error(ex.getMessage(), ex);
+    public ResponseEntity<Object> handleUncaughtException(
+            Exception ex) {
+        log.error("Something went wrong: ", ex);
         return ResponseEntity
                 .status(INTERNAL_SERVER_ERROR)
                 .body(INTERNAL_SERVER_ERROR.getReasonPhrase());

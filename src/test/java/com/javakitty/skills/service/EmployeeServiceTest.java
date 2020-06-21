@@ -1,6 +1,6 @@
 package com.javakitty.skills.service;
 
-import com.javakitty.skills.controller.exception.EmployeeNotFoundException;
+import com.javakitty.skills.model.exception.EmployeeNotFoundException;
 import com.javakitty.skills.dao.EmployeeRepository;
 import com.javakitty.skills.model.dto.EmployeeDto;
 import com.javakitty.skills.model.entity.Employee;
@@ -16,8 +16,6 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
-
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -38,7 +36,7 @@ public class EmployeeServiceTest {
     @ParameterizedTest
     @MethodSource("com.javakitty.skills.arg.EmployeeArgs#employeeDtoSource")
     void dtoToEntityTest(EmployeeDto employeeDto) {
-        Employee employee = employeeService.DtoToEntity(employeeDto);
+        Employee employee = employeeService.dtoToEntity(employeeDto);
 
         Assertions.assertEquals(employeeDto, modelMapper.map(employee, EmployeeDto.class));
     }
@@ -46,7 +44,7 @@ public class EmployeeServiceTest {
     @ParameterizedTest
     @MethodSource("com.javakitty.skills.arg.EmployeeArgs#employeeSource")
     void entityToDtoTest(Employee employee) {
-        EmployeeDto employeeDto = employeeService.EntityToDto(employee);
+        EmployeeDto employeeDto = employeeService.entityToDto(employee);
 
         Assertions.assertEquals(modelMapper.map(employee, EmployeeDto.class), employeeDto);
     }
@@ -65,13 +63,11 @@ public class EmployeeServiceTest {
     void updateTest(Employee employee, EmployeeDto employeeDto, long id) {
         when(employeeRepository.findById(id)).thenReturn(Optional.of(employee));
         when(employeeRepository.save(any(Employee.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
-        ResponseEntity<EmployeeDto> update = employeeService.update(employeeDto, id);
-        EmployeeDto response = update.getBody();
-
+        EmployeeDto update = employeeService.update(employeeDto, id);
         EmployeeDto expected = new EmployeeDto();
         modelMapper.map(employee, expected);
 
-        Assertions.assertEquals(expected, response);
+        Assertions.assertEquals(expected, update);
     }
 
     @ParameterizedTest
@@ -92,19 +88,17 @@ public class EmployeeServiceTest {
     @MethodSource("com.javakitty.skills.arg.EmployeeArgs#employeeAndIdSource")
     void findTest(Employee employee, long id) {
         when(employeeRepository.findById(id)).thenReturn(Optional.of(employee));
+        EmployeeDto found = employeeService.find(id);
 
-        ResponseEntity<EmployeeDto> found = employeeService.find(id);
-        EmployeeDto foundDto = found.getBody();
-
-        Assertions.assertEquals(modelMapper.map(employee, EmployeeDto.class), foundDto);
+        Assertions.assertEquals(modelMapper.map(employee, EmployeeDto.class), found);
     }
 
     @ParameterizedTest
     @ValueSource(longs = 99L)
     void findNegativeTest(long id) {
         when(employeeRepository.findById(id)).thenReturn(Optional.empty());
-        Assertions.assertThrows(EmployeeNotFoundException.class, () -> employeeService.find(id));
 
+        Assertions.assertThrows(EmployeeNotFoundException.class, () -> employeeService.find(id));
     }
 
 }

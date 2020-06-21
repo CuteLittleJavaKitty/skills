@@ -1,39 +1,39 @@
 plugins {
-     id "org.springframework.boot" version "${springframeworkBootVersion}"
-     id "io.spring.dependency-management" version "${springDependencyManagementVersion}"
-     id "io.franzbecker.gradle-lombok" version "${gradleLombokVersion}"
-     id "java"
- }
+    id "org.springframework.boot" version "${springframeworkBootVersion}"
+    id "io.spring.dependency-management" version "${springDependencyManagementVersion}"
+    id "io.franzbecker.gradle-lombok" version "${gradleLombokVersion}"
+    id 'org.liquibase.gradle' version "${liquibaseVersion}"
+    id "java"
+}
+lombok {
+    version = "${lombokVersion}"
+    sha256 = ""
+}
 
- group = "com.javaKitty.skills"
- version = "0.0.1-SNAPSHOT"
+group = "com.javaKitty.skills"
+version = "0.0.1-SNAPSHOT"
 
- repositories {
-     mavenCentral()
- }
 
- dependencies {
+repositories {
+    mavenCentral()
+}
+
+dependencies {
 
      compile "org.modelmapper:modelmapper:${modelMapperVersion}"
      implementation "org.springframework.boot:spring-boot-starter-data-jpa"
-     implementation "org.hibernate:hibernate-core:${hibernateVersion}"
      implementation "org.springframework.boot:spring-boot-starter-web"
      runtimeOnly "org.postgresql:postgresql"
 
-
-     testImplementation "org.springframework.boot:spring-boot-starter-test"
-     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
-     testImplementation "org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}"
-     testImplementation "org.testcontainers:testcontainers:${testContainersVersion}"
-     testImplementation "org.testcontainers:junit-jupiter:${testContainersVersion}"
-     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
-
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testCompile "org.testcontainers:testcontainers:${testContainersVersion}"
+    testCompile "org.testcontainers:junit-jupiter:${testContainersVersion}"
+    testImplementation "org.testcontainers:postgresql:${testContainersVersion}"
+    testCompile "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
+    testCompile "org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
 
  }
- lombok {
-    version = "1.18.4"
-    sha256 = ""
-}
 test {
     useJUnitPlatform()
 }

@@ -32,7 +32,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ResponseEntity<ProjectDto> update(ProjectDto projectDto, long id) throws EntityNotFoundException {
+    public ResponseEntity<ProjectDto> update(ProjectDto projectDto, long id) {
         Project project = get(id);
         modelMapper.map(projectDto, project);
 

@@ -22,7 +22,7 @@ public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "language_id_seq")
     @SequenceGenerator(name = "language_id_seq", sequenceName = "language_id_seq", allocationSize = 1)
-    Long id;
+    private Long id;
 
     @Column(name = "title")
     private LanguageTitle languageTitle;
