@@ -6,11 +6,11 @@ import com.javakitty.skills.dao.EmployeeRepository;
 import com.javakitty.skills.model.dto.EmployeeDto;
 import com.javakitty.skills.model.entity.Employee;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -19,13 +19,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Testcontainers
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ExtendWith(MockitoExtension.class)
 public class EmployeeControllerTest {
 
     @Autowired
@@ -39,13 +39,6 @@ public class EmployeeControllerTest {
 
     @Autowired
     private ModelMapper modelMapper;
-
-
-    @BeforeEach
-    void initMocks() {
-        MockitoAnnotations.initMocks(this);
-    }
-
 
     @ParameterizedTest
     @MethodSource("com.javakitty.skills.arg.EmployeeArgs#employeeDtoSource")

@@ -17,6 +17,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EmployeeNotFoundException.class)
     public ResponseEntity<Object> handleEmployeeNotFoundException(WebRequest webRequest) {
+        log.error("Employee not found");
         return ResponseEntity
                 .status(NOT_FOUND)
                 .body(NOT_FOUND.getReasonPhrase());
@@ -24,8 +25,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleUncaughtException(
-            Exception ex) {
+    public ResponseEntity<Object> handleUncaughtException(Exception ex) {
         log.error("Something went wrong: ", ex);
         return ResponseEntity
                 .status(INTERNAL_SERVER_ERROR)

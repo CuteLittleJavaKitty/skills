@@ -1,9 +1,9 @@
 package com.javakitty.skills.service.impl;
 
-import com.javakitty.skills.model.exception.EmployeeNotFoundException;
 import com.javakitty.skills.dao.EmployeeRepository;
 import com.javakitty.skills.model.dto.EmployeeDto;
 import com.javakitty.skills.model.entity.Employee;
+import com.javakitty.skills.model.exception.EmployeeNotFoundException;
 import com.javakitty.skills.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -42,10 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto update(EmployeeDto employeeDto, long id) {
         Optional<Employee> found = employeeRepository.findById(id);
-        Employee employee = found.orElseThrow(() -> {
-            log.error("Employee with id {} not found", id);
-            return new EmployeeNotFoundException();
-        });
+        Employee employee = found.orElseThrow(EmployeeNotFoundException::new);
         modelMapper.map(employeeDto, employee);
         Employee updated = employeeRepository.save(employee);
 
@@ -60,20 +57,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto find(long id) {
         Optional<Employee> found = employeeRepository.findById(id);
-        Employee employee = found.orElseThrow(() -> {
-            log.error("Employee with id {} not found", id);
-            return new EmployeeNotFoundException();
-        });
+        Employee employee = found.orElseThrow(EmployeeNotFoundException::new);
 
         return entityToDto(employee);
     }
 
-    @Override
     public Employee dtoToEntity(EmployeeDto employeeDto) {
         return Objects.isNull(employeeDto) ? null : modelMapper.map(employeeDto, Employee.class);
     }
 
-    @Override
     public EmployeeDto entityToDto(Employee employee) {
         return Objects.isNull(employee) ? null : modelMapper.map(employee, EmployeeDto.class);
     }

@@ -1,9 +1,13 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-    <changeSet author="winterfir (generated)" id="1592774653271-1">
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet author="winterfir" id="create table employees">
         <createTable tableName="employees">
             <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="employees_pkey"/>
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_employees"/>
             </column>
             <column name="first_name" type="VARCHAR(255)"/>
             <column name="last_name" type="VARCHAR(255)"/>
@@ -11,10 +15,12 @@
             <column name="second_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-2">
+    <changeSet author="winterfir" id="create table programming_language_grades">
         <createTable tableName="programming_language_grades">
             <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="programming_language_grades_pkey"/>
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_programming_language_grades"/>
             </column>
             <column name="grade" type="INTEGER"/>
             <column name="title" type="INTEGER"/>
@@ -22,10 +28,12 @@
             <column name="employee_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-3">
+    <changeSet author="winterfir" id="create table language_grades">
         <createTable tableName="language_grades">
             <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="language_grades_pkey"/>
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_language_grades"/>
             </column>
             <column name="grade" type="INTEGER"/>
             <column name="title" type="INTEGER"/>
@@ -33,10 +41,12 @@
             <column name="employee_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-4">
+    <changeSet author="winterfir" id="create table directions">
         <createTable tableName="directions">
             <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="directions_pkey"/>
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_directions"/>
             </column>
             <column name="direction_grade" type="INTEGER"/>
             <column name="direction_title" type="INTEGER"/>
@@ -46,7 +56,7 @@
             <column name="employee_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-5">
+    <changeSet author="winterfir" id="create table employees_programming_language">
         <createTable tableName="employees_programming_language">
             <column name="employee_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -56,17 +66,21 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-6">
+    <changeSet author="winterfir" id="create table employees_projects">
         <createTable tableName="employees_projects">
             <column name="employees_id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="employees_projects_pkey"/>
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_employees_projects"/>
             </column>
             <column name="projects_id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="employees_projects_pkey"/>
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_employees_projects"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-7">
+    <changeSet author="winterfir" id="create table employees_directions">
         <createTable tableName="employees_directions">
             <column name="employee_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -76,7 +90,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-8">
+    <changeSet author="winterfir" id="create table employees_language">
         <createTable tableName="employees_language">
             <column name="employee_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -86,70 +100,213 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-9">
+    <changeSet author="winterfir" id="create table projects">
         <createTable tableName="projects">
             <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="projects_pkey"/>
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_projects"/>
             </column>
             <column name="direction_grade" type="INTEGER"/>
             <column name="title" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-10">
-        <addForeignKeyConstraint baseColumnNames="employees_id" baseTableName="employees_projects" constraintName="fk151t3yqg2pxbpr4l7yhl9r53b" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="employees" validate="true"/>
+    <changeSet author="winterfir" id="create fk_employees_projects_employees">
+        <addForeignKeyConstraint baseColumnNames="employees_id"
+                                 baseTableName="employees_projects"
+                                 constraintName="fk_employees_projects_employees"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employees"
+                                 validate="true"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-11">
-        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="employees_programming_language" constraintName="fk18exawqtyhuhrrrbfscdohn4o" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="employees" validate="true"/>
+    <changeSet author="winterfir" id="create fk_employees_programming_language_employee">
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="employees_programming_language"
+                                 constraintName="fk_employees_programming_language_employee"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employees"
+                                 validate="true"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-12">
-        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="language_grades" constraintName="fkc3kh8ngd5xdrrrtn1ys2n9tcq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="employees" validate="true"/>
+    <changeSet author="winterfir" id="create fk_language_grades_employee">
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="language_grades"
+                                 constraintName="fk_language_grades_employee"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employees"
+                                 validate="true"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-13">
-        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="directions" constraintName="fkg1p4jjnl46es77v61mtyjawx5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="employees" validate="true"/>
+    <changeSet author="winterfir" id="create fk_directions_employee">
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="directions"
+                                 constraintName="fk_directions_employee"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employees"
+                                 validate="true"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-14">
-        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="employees_directions" constraintName="fkmolnfd7fvj5uqmev910mkw4vn" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="employees" validate="true"/>
+    <changeSet author="winterfir" id="create fk_employees_directions_employee">
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="employees_directions"
+                                 constraintName="fk_employees_directions_employee"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employees"
+                                 validate="true"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-15">
-        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="employees_language" constraintName="fksisaqvj66o1hcy4p7o1yn1p80" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="employees" validate="true"/>
+    <changeSet author="winterfir" id="create fk_employees_language_employee">
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="employees_language"
+                                 constraintName="fk_employees_language_employee"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employees"
+                                 validate="true"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-16">
-        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="programming_language_grades" constraintName="fkt7flhm1wfprn14yo2r2f1r5b0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="employees" validate="true"/>
+    <changeSet author="winterfir" id="create fk_programming_language_grades_employee">
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="programming_language_grades"
+                                 constraintName="fk_programming_language_grades_employee"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employees"
+                                 validate="true"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-17">
-        <addForeignKeyConstraint baseColumnNames="directions_id" baseTableName="employees_directions" constraintName="fka12q9au3kl5k8s9i6cujpoco7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="directions" validate="true"/>
+    <changeSet author="winterfir" id="create fk_employees_directions_directions">
+        <addForeignKeyConstraint baseColumnNames="directions_id"
+                                 baseTableName="employees_directions"
+                                 constraintName="fk_employees_directions_directions"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="directions"
+                                 validate="true"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-18">
-        <addForeignKeyConstraint baseColumnNames="programming_language_id" baseTableName="employees_programming_language" constraintName="fkrmphxgojo32dyija3axfw88by" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="programming_language_grades" validate="true"/>
+    <changeSet author="winterfir" id="create fk_employees_programming_language_programming_language">
+        <addForeignKeyConstraint baseColumnNames="programming_language_id"
+                                 baseTableName="employees_programming_language"
+                                 constraintName="fk_employees_programming_language_programming_language"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="programming_language_grades"
+                                 validate="true"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-19">
-        <addUniqueConstraint columnNames="programming_language_id" constraintName="uk_7q7ellxak1157owinjkb1f6s8" tableName="employees_programming_language"/>
+    <changeSet author="winterfir" id="create uk_employees_programming_language_programming_language">
+        <addUniqueConstraint columnNames="programming_language_id"
+                             constraintName="uk_employees_programming_language_programming_language"
+                             tableName="employees_programming_language"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-20">
-        <addUniqueConstraint columnNames="directions_id" constraintName="uk_egbgby5tougc5c9m7udrqap2c" tableName="employees_directions"/>
+    <changeSet author="winterfir" id="create uk_employees_directions_directions">
+        <addUniqueConstraint columnNames="directions_id"
+                             constraintName="uk_employees_directions_directions"
+                             tableName="employees_directions"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-21">
-        <addForeignKeyConstraint baseColumnNames="language_id" baseTableName="employees_language" constraintName="fkcgoseofc16s9kid9vv4dreuyc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="language_grades" validate="true"/>
+
+    <changeSet author="winterfir" id="create fk_employees_language_language">
+        <addForeignKeyConstraint baseColumnNames="language_id"
+                                 baseTableName="employees_language"
+                                 constraintName="fk_employees_language_language"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="language_grades"
+                                 validate="true"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-22">
-        <addUniqueConstraint columnNames="language_id" constraintName="uk_i764hyruagwv4crd38e98qase" tableName="employees_language"/>
+    <changeSet author="winterfir" id="create uk_employees_language_language">
+        <addUniqueConstraint columnNames="language_id"
+                             constraintName="uk_employees_language_language"
+                             tableName="employees_language"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-23">
-        <addForeignKeyConstraint baseColumnNames="projects_id" baseTableName="employees_projects" constraintName="fkp72i1mp9782wq0tro1m7ldy5t" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="projects" validate="true"/>
+    <changeSet author="winterfir" id="create fk_employees_projects_projects">
+        <addForeignKeyConstraint baseColumnNames="projects_id"
+                                 baseTableName="employees_projects"
+                                 constraintName="fk_employees_projects_projects"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="projects"
+                                 validate="true"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-24">
-        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="direction_id_seq" startValue="1"/>
+    <changeSet author="winterfir" id="create direction_id_seq">
+        <createSequence cacheSize="1"
+                        cycle="false"
+                        dataType="bigint"
+                        incrementBy="1"
+                        maxValue="9223372036854775807"
+                        minValue="1"
+                        sequenceName="direction_id_seq"
+                        startValue="1"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-25">
-        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="employee_id_seq" startValue="1"/>
+    <changeSet author="winterfir" id="create employee_id_seq">
+        <createSequence cacheSize="1"
+                        cycle="false"
+                        dataType="bigint"
+                        incrementBy="1"
+                        maxValue="9223372036854775807"
+                        minValue="1"
+                        sequenceName="employee_id_seq"
+                        startValue="1"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-26">
-        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="language_id_seq" startValue="1"/>
+    <changeSet author="winterfir" id="create language_id_seq">
+        <createSequence cacheSize="1"
+                        cycle="false"
+                        dataType="bigint"
+                        incrementBy="1"
+                        maxValue="9223372036854775807"
+                        minValue="1"
+                        sequenceName="language_id_seq"
+                        startValue="1"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-27">
-        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="programming_language_id_seq" startValue="1"/>
+    <changeSet author="winterfir" id="create programming_language_id_seq">
+        <createSequence cacheSize="1"
+                        cycle="false"
+                        dataType="bigint"
+                        incrementBy="1"
+                        maxValue="9223372036854775807"
+                        minValue="1"
+                        sequenceName="programming_language_id_seq"
+                        startValue="1"/>
     </changeSet>
-    <changeSet author="winterfir (generated)" id="1592774653271-28">
-        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="project_id_seq" startValue="1"/>
+    <changeSet author="winterfir" id="create project_id_seq">
+        <createSequence cacheSize="1"
+                        cycle="false"
+                        dataType="bigint"
+                        incrementBy="1"
+                        maxValue="9223372036854775807"
+                        minValue="1"
+                        sequenceName="project_id_seq"
+                        startValue="1"/>
     </changeSet>
 </databaseChangeLog>
