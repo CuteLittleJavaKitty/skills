@@ -1,0 +1,36 @@
+version: '3.4'
+services:
+  db:
+    container_name: skills_db
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+    ports:
+      - 5432:5432
+    volumes:
+#      - ./db/lib/postgresql:/var/lib/postgresql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - skills
+  backend:
+    container_name: skills_backend
+    image: cutelittlejavakitty/skills:0.10
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod"
+#    healthcheck:
+#      test: ["CMD-SHELL", "curl --fail --silent localhost:8080/actuator/health 2>&1 | grep UP || exit 1"]
+#      interval: 90s
+#      timeout: 5s
+#      retries: 3
+#      start_period: 30s
+    depends_on:
+      - db
+    networks:
+      - skills
+networks:
+  skills:
